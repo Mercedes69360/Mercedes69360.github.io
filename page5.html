@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+
+        <link rel="stylesheet" href="myStyle.css">
+    </head>
+
+    <body>
+        <a href="index.html">Home</a>
+        <a href="page1.html">Fruits</a>
+        <a href="page2.html">Favorite Foods</a>
+        <a href="page3.html">Favorite Movies</a>
+        <a href="page4.html">Favorite Animals</a>
+        <a href="page5.html">Game</a>
+
+    </body>
+<html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="animalContainer">
+        <img id="animalImage" src="" alt="">
+        <p id="hintText">Hint: </p>
+    </div>
+    <input type="text" id="guessInput">
+    <button id="submitBtn">Submit</button>
+
+    <script>
+        const animals = [
+            { name: "Elephant", hint: "The largest land animal" },
+            { name: "Tiger", hint: "A large predatory cat with stripes" },
+            { name: "Giraffe", hint: "Has a long neck and spots" },
+            { name: "Dog", hint: "likes to play fetch"},
+            { name: "Turtle", hint: "is very slow with a shell"},
+            { name: "T-Rex", hint: "is a dinosaur"},
+            { name: "Orca Whale", hint: "is a sea predator but is usually raised in captivity to entertain people"},
+            { name: "Seal", hint: "likes to clap"},
+            { name: "Octopus", hint: "squirts ink"},
+            // Add more animals and hints as needed
+        ];
+
+        let selectedAnimal;
+        let remainingAttempts = 3;
+
+        function getRandomAnimal() {
+            const randomIndex = Math.floor(Math.random() * animals.length);
+            return animals[randomIndex];
+        }
+
+        function displayAnimal() {
+            const animalImage = document.getElementById("animalImage");
+            animalImage.src = selectedAnimal.image;
+
+            const hintText = document.getElementById("hintText");
+            hintText.textContent = `Hint: ${selectedAnimal.hint}`;
+        }
+
+        function checkGuess() {
+            const guessInput = document.getElementById("guessInput");
+            const userGuess = guessInput.value.trim().toLowerCase();
+
+            if (userGuess === selectedAnimal.name.toLowerCase()) {
+                alert("Correct! You guessed the animal.");
+                resetGame();
+            } else {
+                remainingAttempts--;
+
+                if (remainingAttempts > 0) {
+                    alert(`Incorrect! Try again. Remaining attempts: ${remainingAttempts}`);
+                } else {
+                    alert(`Out of attempts. The correct answer was ${selectedAnimal.name}.`);
+                    resetGame();
+                }
+            }
+
+            guessInput.value = "";
+        }
+
+        function resetGame() {
+            selectedAnimal = getRandomAnimal();
+            remainingAttempts = 3;
+            displayAnimal();
+        }
+
+        document.getElementById("submitBtn").addEventListener("click", checkGuess);
+        resetGame(); // Start the game initially
+    </script>
+</body>
+</html>
+
+<img src="animals.png" alt="Guess the Animal:" title="Guess the Animal:">
